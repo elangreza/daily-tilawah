@@ -1,43 +1,20 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import {
-  CircularProgressbarWithChildren,
-  buildStyles,
-} from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import RadialSeparators from "./RadialSeparators";
+
+import Header from "./components/group/header/header";
+import CircularProgress from "./components/single/progressDonut/circularProgress";
+import ButtonProgress from "./components/single/buttonProgress/buttonProgress";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h3>Daily Tilawah</h3>
-      </header>
-
-      <div className="btn-wrapper">
-        <button className="btn-addProgres">Add Progress</button>
-        <button className="btn-deleteProgress">Delete Progress</button>
+    <Router>
+      <div className="App">
+        <Header />
+        <CircularProgress />
+        <ButtonProgress />
       </div>
-      <div className="progressDonut">
-        <CircularProgressbarWithChildren
-          value={80}
-          text={`${80}%`}
-          strokeWidth={10}
-          styles={buildStyles({
-            strokeLinecap: "butt",
-          })}
-        >
-          <RadialSeparators
-            count={12}
-            style={{
-              background: "#fff",
-              width: "2px",
-              // This needs to be equal to props.strokeWidth
-              height: `${10}%`,
-            }}
-          />
-        </CircularProgressbarWithChildren>
-      </div>
-    </div>
+    </Router>
   );
 }
 
