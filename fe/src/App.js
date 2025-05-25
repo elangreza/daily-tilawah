@@ -1,20 +1,22 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 
+import "./App.css";
 import Header from "./components/group/header/header";
 import CircularProgress from "./components/single/progressDonut/circularProgress";
-import ButtonProgress from "./components/single/buttonProgress/buttonProgress";
+
+import ModalAdd from "./modalAdd";
+import ModalDelete from "./modalDelete";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <CircularProgress />
-        <ButtonProgress />
+    <div className="App">
+      <Header />
+      <CircularProgress />
+      <div className="btn-wrapper">
+        <ModalAdd />
+        <ModalDelete />
       </div>
-    </Router>
+    </div>
   );
 }
 
