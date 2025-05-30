@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 
-.btn-wrapper {
+.btn-modal-wrapper {
   position: absolute;
   top: 120px;
   right: 100px;
