@@ -19,7 +19,7 @@ export default function CircularProgress() {
         })}
       >
         <RadialSeparators
-          count={12}
+          count={30}
           style={{
             background: "#fff",
             width: "2px",
