@@ -14,3 +14,12 @@
   align-content: space-evenly;
   font-size: 25px;
 }
+
+/* calendar.css */
+.calendar-warp {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 250px;
+}

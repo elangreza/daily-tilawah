@@ -9,25 +9,27 @@ import "./cricularProgress.css";
 
 export default function CircularProgress() {
   return (
-    <div className="progressDonut">
-      <CircularProgressbarWithChildren
-        value={80}
-        text={`${80}%`}
-        strokeWidth={10}
-        styles={buildStyles({
-          strokeLinecap: "butt",
-        })}
-      >
-        <RadialSeparators
-          count={30}
-          style={{
-            background: "#fff",
-            width: "2px",
-            // This needs to be equal to props.strokeWidth
-            height: `${10}%`,
-          }}
-        />
-      </CircularProgressbarWithChildren>
+    <div className="progress-warp">
+      <div className="progressDonut">
+        <CircularProgressbarWithChildren
+          value={80}
+          text={`${80}%`}
+          strokeWidth={10}
+          styles={buildStyles({
+            strokeLinecap: "butt",
+          })}
+        >
+          <RadialSeparators
+            count={30}
+            style={{
+              background: "#fff",
+              width: "2px",
+              // This needs to be equal to props.strokeWidth
+              height: `${10}%`,
+            }}
+          />
+        </CircularProgressbarWithChildren>
+      </div>
     </div>
   );
 }

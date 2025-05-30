@@ -6,6 +6,7 @@ import "./deleteButton.css";
 function DeleteButton() {
   const env = process.env.REACT_APP_ENVIRONMENT;
   const handleClick = () => {
+    console.log("confirmation please...");
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
