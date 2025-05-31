@@ -21,7 +21,10 @@ function CalendarView() {
   ];
   let month = months[d.getMonth()];
 
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  // const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const dates = Array.from({ length: 31 }, (_, i) => i + 1);
+  // console.log(dates);
 
   return (
     <div>
@@ -35,6 +38,13 @@ function CalendarView() {
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
             <div key={day} className="days-of-week">
               <strong>{day}</strong>
+            </div>
+          ))}
+        </div>
+        <div className="calendar-dates">
+          {dates.map((date) => (
+            <div key={date}>
+              <strong>{date}</strong>
             </div>
           ))}
         </div>
