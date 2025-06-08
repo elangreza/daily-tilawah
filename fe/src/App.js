@@ -4,7 +4,7 @@ import Header from "./components/group/header/header";
 import CircularProgress from "./components/single/progressDonut/circularProgress";
 import ModalAdd from "./components/group/modalAdd/modalAdd";
 import DeleteButton from "./components/single/deleteButton/deleteButton";
-import CalendarView from "./components/group/calendarView/calendarView";
+import CalendarView2 from "./components/group/calendarView2/calendarView2";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <DeleteButton />
       </div>
       <div className="calendar-warp">
-        <CalendarView />
+        <CalendarView2 />
       </div>
     </div>
   );
