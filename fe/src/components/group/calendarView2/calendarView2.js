@@ -1,14 +1,15 @@
-import React from "react";
+import ContButton from "../../single/contButton/ContButton";
+import PrevButton from "../../single/prevButton/PrevButton";
 import "./calendarView2.css";
 
 function CalendarView2() {
   // to simulate using feb 2025
   // const d = new Date(new Date().setMonth(1))
   // to simulate using may 2025
-  const d = new Date(new Date().setMonth(4))
+  const d = new Date(new Date().setMonth(4));
   // const d = new Date()
   const year = d.getFullYear();
-  
+
   const months = [
     "January",
     "February",
@@ -25,40 +26,48 @@ function CalendarView2() {
   ];
   let month = months[d.getMonth()];
 
-  const totalDaysInTheCurrentMonth = new Date(year, d.getMonth()+1, 0).getDate()
-  
+  const totalDaysInTheCurrentMonth = new Date(
+    year,
+    d.getMonth() + 1,
+    0
+  ).getDate();
+
   let dates = Array.from({ length: totalDaysInTheCurrentMonth }, (val, i) => ({
-    date: new Date(year, d.getMonth(), i+1),
-    bold: true
-  }),);
-  
+    date: new Date(year, d.getMonth(), i + 1),
+    bold: true,
+  }));
+
   // check if first date is not in the Sunday append at first
-  let firstDayOfTheMonth = new Date(year, d.getMonth(), 1)
+  let firstDayOfTheMonth = new Date(year, d.getMonth(), 1);
   // this condition will check if the current month is not start in sunday
-  const SUNDAY = 0
+  const SUNDAY = 0;
   if (firstDayOfTheMonth.getDay() !== SUNDAY) {
-    const daysToGenerate = firstDayOfTheMonth.getDay()
+    const daysToGenerate = firstDayOfTheMonth.getDay();
     for (let step = 0; step < daysToGenerate; step++) {
-      firstDayOfTheMonth.setDate(firstDayOfTheMonth.getDate() - 1)
+      firstDayOfTheMonth.setDate(firstDayOfTheMonth.getDate() - 1);
       dates.unshift({
         date: new Date(firstDayOfTheMonth),
-        bold: false
-      }) 
+        bold: false,
+      });
     }
   }
 
   // check if last date is not in the Saturday append at last
-  let lasttDayOfTheMonth = new Date(year, d.getMonth(), totalDaysInTheCurrentMonth)
+  let lasttDayOfTheMonth = new Date(
+    year,
+    d.getMonth(),
+    totalDaysInTheCurrentMonth
+  );
   // this condition will check if the current month is not last in saturday
-  const SATURDAY = 6
+  const SATURDAY = 6;
   if (lasttDayOfTheMonth.getDay() !== SATURDAY) {
-    const daysToGenerate = 6 - lasttDayOfTheMonth.getDay()
+    const daysToGenerate = 6 - lasttDayOfTheMonth.getDay();
     for (let step = 0; step < daysToGenerate; step++) {
-      lasttDayOfTheMonth.setDate(lasttDayOfTheMonth.getDate() + 1)
+      lasttDayOfTheMonth.setDate(lasttDayOfTheMonth.getDate() + 1);
       dates.push({
         date: new Date(lasttDayOfTheMonth),
-        bold: false
-      }) 
+        bold: false,
+      });
     }
   }
 
@@ -66,9 +75,11 @@ function CalendarView2() {
     <div>
       <div className="calendar-container">
         <div className="calendar-header">
+          <PrevButton />
           <h3>
             {month} {year}
           </h3>
+          <ContButton />
         </div>
         <div className="calendar-week">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
@@ -80,9 +91,11 @@ function CalendarView2() {
         <div className="calendar-dates">
           {dates.map((date, i) => (
             <div key={i}>
-              {
-                date.bold ? <strong>{date.date.getDate().toString()}</strong> : <>{date.date.getDate().toString()}</> 
-              }
+              {date.bold ? (
+                <strong>{date.date.getDate().toString()}</strong>
+              ) : (
+                <>{date.date.getDate().toString()}</>
+              )}
             </div>
           ))}
         </div>

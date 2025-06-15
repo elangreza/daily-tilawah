@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 import { useState } from "react";
 import "./modalAdd.css";
+import StartButton from "../../single/startButton/startButton";
 
 // const customStyles = {
 //   content: {
@@ -57,6 +58,11 @@ function ModalAdd() {
         <button className="btn-close" onClick={closeModal}>
           close
         </button>
+        <div className="btn-option-wrap">
+          <StartButton />
+          <button className="op2">Start From Custom Juz</button>
+          <button className="op3">Start From Page </button>
+        </div>
 
         {/* <form>
           <input />
