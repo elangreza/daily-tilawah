@@ -1,5 +1,4 @@
-import ContButton from "../../single/contButton/ContButton";
-import PrevButton from "../../single/prevButton/PrevButton";
+import CalendarNavButton from "../../single/calendarNavButton/CalendarNavButton";
 import "./calendarView2.css";
 
 function CalendarView2() {
@@ -75,11 +74,11 @@ function CalendarView2() {
     <div>
       <div className="calendar-container">
         <div className="calendar-header">
-          <PrevButton />
+          <CalendarNavButton arrow="<" />
           <h3>
             {month} {year}
           </h3>
-          <ContButton />
+          <CalendarNavButton arrow=">" />
         </div>
         <div className="calendar-week">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
