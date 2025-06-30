@@ -45,7 +45,7 @@ const CalendarView2 = () => {
   // count total days to determine the total number of days in each month
   const totalDays = new Date(year, monthIndex + 1, 0).getDate();
   // create an array from of (length)the number of days of a month determined before
-  const dates = Array.from({ length: totalDays }, (_, i) => ({
+  const dates = Array.from({ length: totalDays }, (val, i) => ({
     date: new Date(year, monthIndex, i + 1),
     bold: true,
   }));
