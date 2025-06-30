@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import "./deleteButton.css";
 
-function DeleteButton() {
+const DeleteButton = () => {
   const env = process.env.REACT_APP_ENVIRONMENT;
   const handleClick = () => {
     console.log("confirmation please...");
@@ -35,6 +35,6 @@ function DeleteButton() {
       )}
     </div>
   );
-}
+};
 
 export default DeleteButton;

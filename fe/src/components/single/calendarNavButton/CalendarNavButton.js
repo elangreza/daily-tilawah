@@ -1,9 +1,10 @@
 import "./CalendarNavButton.css";
-
-const CalendarNavButton = (props) => {
+const CalendarNavButton = ({ arrow, onClick }) => {
   return (
     <div>
-      <button className="button-arrow">{props.arrow}</button>
+      <button className="button-arrow" onClick={onClick}>
+        {arrow}
+      </button>
     </div>
   );
 };

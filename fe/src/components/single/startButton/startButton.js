@@ -4,7 +4,7 @@ import "./startButton.css";
 
 Modal.setAppElement("#root");
 
-function StartButton() {
+const StartButton = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -45,6 +45,6 @@ function StartButton() {
       </Modal>
     </div>
   );
-}
+};
 
 export default StartButton;

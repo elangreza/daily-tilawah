@@ -1,7 +1,7 @@
 import React from "react";
 import "./header.css";
 
-function Header() {
+const Header = () => {
   return (
     <div>
       <header className="App-header">
@@ -9,6 +9,6 @@ function Header() {
       </header>
     </div>
   );
-}
+};
 
 export default Header;

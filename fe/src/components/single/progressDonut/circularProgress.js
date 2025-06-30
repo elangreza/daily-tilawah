@@ -7,7 +7,7 @@ import {
 } from "react-circular-progressbar";
 import "./cricularProgress.css";
 
-export default function CircularProgress() {
+const CircularProgress = () => {
   return (
     <div className="progress-warp">
       <div className="progressDonut">
@@ -32,4 +32,6 @@ export default function CircularProgress() {
       </div>
     </div>
   );
-}
+};
+
+export default CircularProgress;

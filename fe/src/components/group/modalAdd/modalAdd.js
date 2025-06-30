@@ -17,24 +17,24 @@ import StartButton from "../../single/startButton/startButton";
 
 Modal.setAppElement("#root");
 
-function ModalAdd() {
+const ModalAdd = () => {
   // let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
-  function afterOpenModal() {
+  const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
     // subtitle.style.color = "#f00";
     console.log("you will update progress.....");
-  }
+  };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
     console.log("your action will be updated soon.....");
-  }
+  };
 
   return (
     <div>
@@ -74,6 +74,6 @@ function ModalAdd() {
       </Modal>
     </div>
   );
-}
+};
 
 export default ModalAdd;
