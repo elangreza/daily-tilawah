@@ -5,12 +5,11 @@ import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from "react-circular-progressbar";
-import "./cricularProgress.css";
 
 const CircularProgress = () => {
   return (
-    <div className="progress-warp">
-      <div className="progressDonut">
+    <div className="progress-warp flex absolute top-[90px] w-full justify-center">
+      <div className="progressDonut absolute h-[130px] w-[130px]">
         <CircularProgressbarWithChildren
           value={80}
           text={`${80}%`}

@@ -1,71 +1,7 @@
-// import React from "react";
-// import "./calendarView.css";
-
-// const CalendarView = () => {
-//   const d = new Date();
-//   const year = d.getFullYear();
-
-//   const months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December",
-//   ];
-//   let month = months[d.getMonth()];
-
-//   // const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-//   const dates = Array.from({ length: 31 }, (_, i) => i + 1);
-//   // console.log(dates);
-
-//   return (
-//     <div>
-//       <div className="calendar-container">
-//         <div className="calendar-header">
-//           <h3>
-//             {month} {year}
-//           </h3>
-//         </div>
-//         <div className="calendar-week">
-//           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-//             <div key={day} className="days-of-week">
-//               <strong>{day}</strong>
-//             </div>
-//           ))}
-//         </div>
-//         <div className="calendar-dates">
-//           {dates.map((date) => (
-//             <div key={date}>
-//               <strong>{date}</strong>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CalendarView;
-
+import { useState } from "react";
 import CalendarNavButton from "../../single/calendarNavButton/CalendarNavButton";
-import "./calendarView2.css";
 
-function CalendarView2() {
-  // to simulate using feb 2025
-  // const d = new Date(new Date().setMonth(1))
-  // to simulate using may 2025
-  const d = new Date(new Date().setMonth(4));
-  // const d = new Date()
-  const year = d.getFullYear();
-
+const CalendarView = () => {
   const months = [
     "January",
     "February",
@@ -80,83 +16,96 @@ function CalendarView2() {
     "November",
     "December",
   ];
-  let month = months[d.getMonth()];
 
-  const totalDaysInTheCurrentMonth = new Date(
-    year,
-    d.getMonth() + 1,
-    0
-  ).getDate();
+  // State for month and year
+  const today = new Date();
+  const [monthIndex, setMonthIndex] = useState(today.getMonth());
+  const [year, setYear] = useState(today.getFullYear());
 
-  let dates = Array.from({ length: totalDaysInTheCurrentMonth }, (val, i) => ({
-    date: new Date(year, d.getMonth(), i + 1),
+  // function button navigation month and year
+  const changeMonth = (direction) => {
+    if (direction === "prev") {
+      if (monthIndex === 0) {
+        setMonthIndex(11); // December
+        setYear((prev) => prev - 1);
+      } else {
+        setMonthIndex((prev) => prev - 1);
+      }
+    } else if (direction === "next") {
+      if (monthIndex === 11) {
+        setMonthIndex(0); // January
+        setYear((prev) => prev + 1);
+      } else {
+        setMonthIndex((prev) => prev + 1);
+      }
+    }
+  };
+
+  // count total days to determine the total number of days in each month
+  const totalDays = new Date(year, monthIndex + 1, 0).getDate();
+  // create an array from of (length)the number of days of a month determined before
+  const dates = Array.from({ length: totalDays }, (val, i) => ({
+    date: new Date(year, monthIndex, i + 1),
     bold: true,
   }));
 
-  // check if first date is not in the Sunday append at first
-  let firstDayOfTheMonth = new Date(year, d.getMonth(), 1);
+  // get the first day (monday, tuesday, wednesday etc) of each month
+  const firstDayOfTheMonth = new Date(year, monthIndex, 1);
   firstDayOfTheMonth.getDay();
-  // this condition will check if the current month is not start in sunday
-  // fill in the blank day(date) at the beginning of the month if it is not Sunday,
+  // fill in the blank day(date) at the beginning of the month if it is not Sunday(0),
   // fill the entire month page
   const SUNDAY = 0;
   if (firstDayOfTheMonth.getDay() !== SUNDAY) {
-    const daysToGenerate = firstDayOfTheMonth.getDay();
-    for (let step = 0; step < daysToGenerate; step++) {
-      firstDayOfTheMonth.setDate(firstDayOfTheMonth.getDate() - 1);
-      dates.unshift({
-        date: new Date(firstDayOfTheMonth),
-        bold: false,
-      });
+    const clone = new Date(firstDayOfTheMonth);
+    for (let i = 0; i < firstDayOfTheMonth.getDay(); i++) {
+      clone.setDate(clone.getDate() - 1);
+      dates.unshift({ date: new Date(clone), bold: false });
     }
   }
 
-  // check if last date is not in the Saturday append at last
-  let lasttDayOfTheMonth = new Date(
-    year,
-    d.getMonth(),
-    totalDaysInTheCurrentMonth
-  );
-  lasttDayOfTheMonth.getDay();
-  // this condition will check if the current month is not last in saturday
+  // get the last day (monday, tuesday, wednesday etc) of each month
+  const lastDayOfTheMonth = new Date(year, monthIndex, totalDays);
+  lastDayOfTheMonth.getDay();
+  // fill in the blank day(date) at the end of the month if it is not Saturday(6),
+  // fill the entire month page
   const SATURDAY = 6;
-  if (lasttDayOfTheMonth.getDay() !== SATURDAY) {
-    const daysToGenerate = 6 - lasttDayOfTheMonth.getDay();
-    for (let step = 0; step < daysToGenerate; step++) {
-      lasttDayOfTheMonth.setDate(lasttDayOfTheMonth.getDate() + 1);
-      dates.push({
-        date: new Date(lasttDayOfTheMonth),
-        bold: false,
-      });
+  if (lastDayOfTheMonth.getDay() !== SATURDAY) {
+    const clone = new Date(lastDayOfTheMonth);
+    for (let i = 0; i < 6 - lastDayOfTheMonth.getDay(); i++) {
+      clone.setDate(clone.getDate() + 1);
+      dates.push({ date: new Date(clone), bold: false });
     }
   }
 
   return (
     <div>
-      <div className="calendar-container">
-        <div className="calendar-header">
-          <CalendarNavButton arrow="<" />
+      <div className="calendar-container w-[500px] rounded-lg  bg-white p-4">
+        <div className="calendar-header flex justify-between items-center font-bold mb-3">
+          <CalendarNavButton arrow="<" onClick={() => changeMonth("prev")} />
           <h3>
-            {month} {year}
+            {months[monthIndex]} {year}
           </h3>
-          <CalendarNavButton arrow=">" />
+          <CalendarNavButton arrow=">" onClick={() => changeMonth("next")} />
         </div>
 
-        <div className="calendar-week">
+        <div className="calendar-week grid grid-cols-7 gap-3 mb-2">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-            <div key={day} className="days-of-week">
+            <div
+              key={day}
+              className="days-of-week text-center p-[5px] bg-slate-400 rounded-lg"
+            >
               <strong>{day}</strong>
             </div>
           ))}
         </div>
 
-        <div className="calendar-dates">
-          {dates.map((date, i) => (
+        <div className="calendar-dates grid grid-cols-7 gap-3 text-center p-[5px] ">
+          {dates.map((d, i) => (
             <div key={i}>
-              {date.bold ? (
-                <strong>{date.date.getDate().toString()}</strong>
+              {d.bold ? (
+                <strong>{d.date.getDate()}</strong>
               ) : (
-                <>{date.date.getDate().toString()}</>
+                <>{d.date.getDate()}</>
               )}
             </div>
           ))}
@@ -164,6 +113,6 @@ function CalendarView2() {
       </div>
     </div>
   );
-}
+};
 
-export default CalendarView2;
+export default CalendarView;

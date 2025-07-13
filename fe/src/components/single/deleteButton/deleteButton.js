@@ -1,7 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
-import "./deleteButton.css";
 
 const DeleteButton = () => {
   const env = process.env.REACT_APP_ENVIRONMENT;
@@ -29,7 +28,10 @@ const DeleteButton = () => {
   return (
     <div>
       {env === "DEV" && (
-        <button className="delete-button" onClick={handleClick}>
+        <button
+          className="delete-button h-[30px] w-[150px] bg-white rounded text-lg font-bold shadow-lg active:shadow-sm active:translate-y-1 transition transform duration-150"
+          onClick={handleClick}
+        >
           Delete Progress
         </button>
       )}
