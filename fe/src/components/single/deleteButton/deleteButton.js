@@ -2,7 +2,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
-const DeleteButton = () => {
+const DeleteButton = ({ setProgressPages }) => {
   const env = process.env.REACT_APP_ENVIRONMENT;
   const handleClick = () => {
     console.log("confirmation please...");
@@ -21,6 +21,8 @@ const DeleteButton = () => {
           text: "Your file has been deleted.",
           icon: "success",
         });
+        setProgressPages([]);
+        localStorage.removeItem("inputProgress");
         console.log("your record is deleted...");
       }
     });
@@ -29,7 +31,7 @@ const DeleteButton = () => {
     <div>
       {env === "DEV" && (
         <button
-          className="delete-button h-[30px] w-[150px] bg-white rounded text-lg font-bold shadow-lg active:shadow-sm active:translate-y-1 transition transform duration-150"
+          className="w-[70px] sm:h-[30px] sm:w-[100px] md:h-[30px] md:w-[150px] bg-white rounded text-xs sm:text-sm md:text-lg md:font-bold shadow-lg active:shadow-sm active:translate-y-1 transition transform duration-150"
           onClick={handleClick}
         >
           Delete Progress

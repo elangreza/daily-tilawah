@@ -1,26 +1,22 @@
 import { useState } from "react";
 import CalendarNavButton from "../../single/calendarNavButton/CalendarNavButton";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import { calendarFunc } from "./calendarFunc";
 
 const CalendarView = () => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   // State for month and year
   const today = new Date();
   const [monthIndex, setMonthIndex] = useState(today.getMonth());
   const [year, setYear] = useState(today.getFullYear());
+
+  const dummyInputDates = {
+    "2025-06-01": "bg-yellow-300",
+    "2025-06-10": "bg-green-300",
+    "2025-06-15": "bg-blue-300",
+  };
+
+  // Generate calendar dates using the separated function
+  const dates = calendarFunc.generateCalendarDates(year, monthIndex);
 
   // function button navigation month and year
   const changeMonth = (direction) => {
@@ -41,74 +37,49 @@ const CalendarView = () => {
     }
   };
 
-  // count total days to determine the total number of days in each month
-  const totalDays = new Date(year, monthIndex + 1, 0).getDate();
-  // create an array from of (length)the number of days of a month determined before
-  const dates = Array.from({ length: totalDays }, (val, i) => ({
-    date: new Date(year, monthIndex, i + 1),
-    bold: true,
-  }));
-
-  // get the first day (monday, tuesday, wednesday etc) of each month
-  const firstDayOfTheMonth = new Date(year, monthIndex, 1);
-  firstDayOfTheMonth.getDay();
-  // fill in the blank day(date) at the beginning of the month if it is not Sunday(0),
-  // fill the entire month page
-  const SUNDAY = 0;
-  if (firstDayOfTheMonth.getDay() !== SUNDAY) {
-    const clone = new Date(firstDayOfTheMonth);
-    for (let i = 0; i < firstDayOfTheMonth.getDay(); i++) {
-      clone.setDate(clone.getDate() - 1);
-      dates.unshift({ date: new Date(clone), bold: false });
-    }
-  }
-
-  // get the last day (monday, tuesday, wednesday etc) of each month
-  const lastDayOfTheMonth = new Date(year, monthIndex, totalDays);
-  lastDayOfTheMonth.getDay();
-  // fill in the blank day(date) at the end of the month if it is not Saturday(6),
-  // fill the entire month page
-  const SATURDAY = 6;
-  if (lastDayOfTheMonth.getDay() !== SATURDAY) {
-    const clone = new Date(lastDayOfTheMonth);
-    for (let i = 0; i < 6 - lastDayOfTheMonth.getDay(); i++) {
-      clone.setDate(clone.getDate() + 1);
-      dates.push({ date: new Date(clone), bold: false });
-    }
-  }
-
   return (
     <div>
-      <div className="calendar-container w-[500px] rounded-lg  bg-white p-4">
+      <div className="calendar-container md:w-[500px] sm:w-[400px] w-[300px] rounded-lg  bg-white p-4">
         <div className="calendar-header flex justify-between items-center font-bold mb-3">
-          <CalendarNavButton arrow="<" onClick={() => changeMonth("prev")} />
+          <CalendarNavButton
+            arrow={<ChevronsLeft size={30} strokeWidth={2.25} />}
+            onClick={() => changeMonth("prev")}
+          />
           <h3>
-            {months[monthIndex]} {year}
+            {calendarFunc.months[monthIndex]} {year}
           </h3>
-          <CalendarNavButton arrow=">" onClick={() => changeMonth("next")} />
+          <CalendarNavButton
+            arrow={<ChevronsRight size={30} strokeWidth={2.25} />}
+            onClick={() => changeMonth("next")}
+          />
         </div>
 
-        <div className="calendar-week grid grid-cols-7 gap-3 mb-2">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+        <div className="calendar-week grid grid-cols-7 gap-1 mb-2 text-xs sm:text-sm md:text-base">
+          {calendarFunc.daysOfWeek.map((day) => (
             <div
               key={day}
-              className="days-of-week text-center p-[5px] bg-slate-400 rounded-lg"
+              className="text-center p-[5px] bg-slate-400 rounded-lg"
             >
               <strong>{day}</strong>
             </div>
           ))}
         </div>
 
-        <div className="calendar-dates grid grid-cols-7 gap-3 text-center p-[5px] ">
-          {dates.map((d, i) => (
-            <div key={i}>
-              {d.bold ? (
-                <strong>{d.date.getDate()}</strong>
-              ) : (
-                <>{d.date.getDate()}</>
-              )}
-            </div>
-          ))}
+        <div className="calendar-dates grid grid-cols-7 gap-3 text-center p-[5px] text-xs sm:text-sm md:text-base">
+          {dates.map((d, i) => {
+            const dateStr = d.date.toISOString().slice(0, 10);
+            const markedBg =
+              dummyInputDates[dateStr] || (d.bold ? "bg-white" : "bg-gray-200");
+            return (
+              <div key={i} className={`rounded ${markedBg}`}>
+                {d.bold ? (
+                  <strong>{d.date.getDate()}</strong>
+                ) : (
+                  <>{d.date.getDate()}</>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

@@ -6,13 +6,15 @@ import {
   buildStyles,
 } from "react-circular-progressbar";
 
-const CircularProgress = () => {
+const CircularProgress = ({ progressPages }) => {
+  const percentageProgress = Math.min((progressPages / 604) * 100, 100);
+
   return (
     <div className="progress-warp flex absolute top-[90px] w-full justify-center">
       <div className="progressDonut absolute h-[130px] w-[130px]">
         <CircularProgressbarWithChildren
-          value={80}
-          text={`${80}%`}
+          value={percentageProgress}
+          text={`${Math.round(percentageProgress)}%`}
           strokeWidth={10}
           styles={buildStyles({
             strokeLinecap: "butt",
